@@ -1,0 +1,458 @@
+@charset "UTF-8";
+.clock {
+  position: relative;
+}
+.clock .front {
+  transition: stroke-dashoffset 300ms ease-out, stroke-dasharray 1s, stroke 1s, stroke-width 1s, r 1s;
+}
+.clock .back {
+  transition: stroke 1s, stroke-width 1s, r 1s;
+}
+.clock .display {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  line-height: 20px;
+  margin-top: -10px;
+  font-size: 0.7em;
+}
+
+.red {
+  color: #e74c3c;
+}
+
+.blue {
+  color: #337ab7;
+}
+
+#content.red-team .team-colour {
+  color: #e74c3c;
+}
+#content.blue-team .team-colour {
+  color: #337ab7;
+}
+#content.red-team .enemy-colour {
+  color: #337ab7;
+}
+#content.blue-team .enemy-colour {
+  color: #e74c3c;
+}
+#content.red-turn .current-colour {
+  color: #e74c3c;
+}
+#content.blue-turn .current-colour {
+  color: #337ab7;
+}
+
+.teams .vs .num {
+  padding: 0 30px;
+  font-size: 2em;
+}
+.teams ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.teams .players li {
+  text-align: center;
+}
+.teams .players li.current-player {
+  font-weight: bold;
+}
+
+#utility-menu .players .red-team {
+  color: #e74c3c;
+}
+#utility-menu .players .blue-team {
+  color: #337ab7;
+}
+
+.word-packs {
+  display: flex;
+  flex-direction: column;
+  margin: 25px 0;
+}
+.word-packs button {
+  font-size: inherit;
+  flex-grow: 1;
+  margin: 5px;
+  position: relative;
+}
+.word-packs button h3,
+.word-packs button p {
+  margin: 10px 0;
+}
+.word-packs button .language {
+  position: absolute;
+  top: 28px;
+  left: 10px;
+  margin-top: -18px;
+}
+.word-packs button .badge {
+  position: absolute;
+  top: 28px;
+  right: 15px;
+  margin-top: -9.335px;
+}
+.word-packs button.selected {
+  background-color: #375a7f;
+  border-color: #375a7f;
+}
+
+@font-face {
+  font-family: "fontello";
+  src: url("../img/fontello.eot");
+  src: url("../img/fontello.eot#iefix") format("embedded-opentype"), url("../img/fontello.woff2") format("woff2"), url("../img/fontello.woff") format("woff"), url("../img/fontello.ttf") format("truetype"), url("../img/fontello.svg#fontello") format("svg");
+}
+body {
+  max-width: 1280px;
+}
+body .ad-room-footer {
+  width: 100%;
+  margin-left: 0;
+}
+
+body {
+  padding-bottom: 300px;
+}
+
+#content:not(.red-team) .only-red-team {
+  display: none;
+}
+#content.red-team .not-red-team {
+  display: none;
+}
+
+#content:not(.blue-team) .only-blue-team {
+  display: none;
+}
+#content.blue-team .not-blue-team {
+  display: none;
+}
+
+#content:not(.codemaster) .only-codemaster {
+  display: none;
+}
+#content.codemaster .not-codemaster {
+  display: none;
+}
+
+#content:not(.current-turn) .only-current-turn {
+  display: none;
+}
+#content.current-turn .not-current-turn {
+  display: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.coloured, #content.terminal:not(.codemaster) #board li:not(.flipped), #content.codemaster #board li, #board .flipped {
+  color: #fff;
+}
+.coloured.red, #content.terminal:not(.codemaster) #board li.red:not(.flipped), #content.codemaster #board li.red, #board .red.flipped {
+  background-color: #e74c3c;
+}
+.coloured.blue, #content.terminal:not(.codemaster) #board li.blue:not(.flipped), #content.codemaster #board li.blue, #board .blue.flipped {
+  background-color: #337ab7;
+}
+.coloured.corrupted, #content.terminal:not(.codemaster) #board li.corrupted:not(.flipped), #content.codemaster #board li.corrupted, #board .corrupted.flipped {
+  background-color: #000;
+}
+.coloured.civilian, #content.terminal:not(.codemaster) #board li.civilian:not(.flipped), #content.codemaster #board li.civilian, #board .civilian.flipped {
+  background-color: #666;
+}
+
+.animated, #content.terminal:not(.codemaster) #board li:not(.flipped), #board .flipped {
+  animation-duration: 1s;
+}
+.animated.red, #content.terminal:not(.codemaster) #board li.red:not(.flipped), #board .red.flipped {
+  animation-name: rotateY-red;
+}
+.animated.blue, #content.terminal:not(.codemaster) #board li.blue:not(.flipped), #board .blue.flipped {
+  animation-name: rotateY-blue;
+}
+.animated.corrupted, #content.terminal:not(.codemaster) #board li.corrupted:not(.flipped), #board .corrupted.flipped {
+  animation-name: rotateY-black;
+}
+.animated.civilian, #content.terminal:not(.codemaster) #board li.civilian:not(.flipped), #board .civilian.flipped {
+  animation-name: rotateY-grey;
+}
+
+#content.codemaster-turn.red-turn #dashboard .red .codemaster {
+  color: #e74c3c;
+}
+#content.codemaster-turn.blue-turn #dashboard .blue .codemaster {
+  color: #337ab7;
+}
+#content.codebreakers-turn.red-turn #dashboard .red .codebreakers {
+  color: #e74c3c;
+}
+#content.codebreakers-turn.blue-turn #dashboard .blue .codebreakers {
+  color: #337ab7;
+}
+#content.codemaster.red-team #dashboard .red .codemaster {
+  border-color: #e74c3c;
+}
+#content.codemaster.blue-team #dashboard .blue .codemaster {
+  border-color: #337ab7;
+}
+#content:not(.codemaster).red-team #dashboard .red .codebreakers {
+  border-color: #e74c3c;
+}
+#content:not(.codemaster).blue-team #dashboard .blue .codebreakers {
+  border-color: #337ab7;
+}
+
+#utility-menu .players .codemaster::before {
+  font-family: "fontello";
+  content: "";
+}
+
+#dashboard {
+  display: flex;
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+#dashboard i {
+  font-family: "fontello";
+  text-align: center;
+  width: 48px;
+  height: 48px;
+  font-size: 28px;
+  line-height: 28px;
+  padding: 9px;
+  text-decoration: inherit;
+  font-style: inherit;
+  vertical-align: middle;
+  border-radius: 48px;
+  border: 1px solid;
+  border-color: transparent;
+}
+#dashboard i.codebreakers:before {
+  content: "";
+}
+#dashboard i.codemaster:before {
+  content: "";
+}
+#dashboard .red i {
+  color: #71332c;
+}
+#dashboard .blue i {
+  color: #29455e;
+}
+#dashboard .red,
+#dashboard .blue {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+}
+#dashboard .red .score,
+#dashboard .blue .score {
+  flex-grow: 1;
+}
+#dashboard .found {
+  font-size: 1.2em;
+}
+#dashboard .total {
+  font-size: 0.8em;
+  vertical-align: sub;
+  color: #eee;
+}
+
+#board ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  perspective: 1000px;
+}
+#board li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  min-height: 60px;
+  height: 7.4585954719vmin;
+  max-height: 90px;
+  max-width: 250px;
+  min-width: 19.1596638655%;
+  margin: 5px;
+  padding: 0 15px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: black;
+  transition: transform 0.3s, box-shadow 0.3s;
+  word-break: break-word;
+}
+@media (min-width: 1209px) {
+  #board li {
+    flex-basis: 0;
+  }
+}
+#board .selected {
+  transform: scale(1.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#content.codemaster #board li {
+  transition: transform 0.3s, box-shadow 0.3s, opacity 1s;
+  opacity: 1;
+}
+#content.codemaster #board li.flipped {
+  opacity: 0.2;
+  animation-name: rotateY;
+}
+#content.terminal:not(.codemaster) #board li:not(.flipped) {
+  transition: transform 0.3s, box-shadow 0.3s, opacity 1s;
+  opacity: 0.2;
+}
+
+#intro .players li.volunteer::before {
+  display: inline-block;
+  height: 0;
+  line-height: 0;
+  width: 30px;
+  font-family: "fontello";
+  content: "";
+}
+#intro .players li.abstain::before {
+  display: inline-block;
+  height: 0;
+  line-height: 0;
+  width: 30px;
+  content: "❌";
+}
+
+#codemaster .numbers a {
+  padding: 0.35em 1em;
+  font-size: 1.4em;
+}
+
+@keyframes rotateY {
+  0% {
+    animation-timing-function: ease-in;
+    transform: scale(1.2) rotateY(0);
+  }
+  50% {
+    transform: scale(1.095445115) rotateY(90deg);
+  }
+  50.001% {
+    animation-timing-function: ease-out;
+    transform: scale(1.095445115) rotateY(-90deg);
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+@keyframes rotateY-red {
+  0% {
+    animation-timing-function: ease-in;
+    transform: scale(1.2) rotateY(0);
+    background-color: white;
+    color: black;
+  }
+  45% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    transform: scale(1.095445115) rotateY(90deg);
+  }
+  50.001% {
+    animation-timing-function: ease-out;
+    transform: scale(1.095445115) rotateY(-90deg);
+  }
+  55% {
+    background-color: #e74c3c;
+    color: white;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+@keyframes rotateY-blue {
+  0% {
+    animation-timing-function: ease-in;
+    transform: scale(1.2) rotateY(0);
+    background-color: white;
+    color: black;
+  }
+  45% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    transform: scale(1.095445115) rotateY(90deg);
+  }
+  50.001% {
+    animation-timing-function: ease-out;
+    transform: scale(1.095445115) rotateY(-90deg);
+  }
+  55% {
+    background-color: #337ab7;
+    color: white;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+@keyframes rotateY-black {
+  0% {
+    animation-timing-function: ease-in;
+    transform: scale(1.2) rotateY(0);
+    background-color: white;
+    color: black;
+  }
+  45% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    transform: scale(1.095445115) rotateY(90deg);
+  }
+  50.001% {
+    animation-timing-function: ease-out;
+    transform: scale(1.095445115) rotateY(-90deg);
+  }
+  55% {
+    background-color: #000;
+    color: white;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+@keyframes rotateY-grey {
+  0% {
+    animation-timing-function: ease-in;
+    transform: scale(1.2) rotateY(0);
+    background-color: white;
+    color: black;
+  }
+  45% {
+    background-color: white;
+    color: black;
+  }
+  50% {
+    transform: scale(1.095445115) rotateY(90deg);
+  }
+  50.001% {
+    animation-timing-function: ease-out;
+    transform: scale(1.095445115) rotateY(-90deg);
+  }
+  55% {
+    background-color: #666;
+    color: white;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+/*# sourceMappingURL=room.css.map */
