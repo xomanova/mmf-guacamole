@@ -63,7 +63,7 @@ resource "aws_instance" "socket_router" {
   tags = {
     Name = "${var.project}-websocket-forwarder"
   }
-  user_data                   = <<EOF
+  user_data = <<EOF
 #!/bin/bash
 echo "Installing requirements" > /home/ec2-user/requirments.log
 echo "Update and save iptables" > /home/ec2-user/iptables.log
