@@ -1,4 +1,8 @@
 # Temporary websocket backend
+data "aws_vpc" "default_vpc" {
+  default = true
+}
+
 data "dns_a_record_set" "tmp_socket" {
   host = "netgames.io"
 }
@@ -76,6 +80,7 @@ resource "aws_lb_target_group" "socket_80" {
   target_type = "instance"
   port        = 80
   protocol    = "TCP"
+  vpc_id      = data.aws_vpc.default_vpc.id
 }
 
 resource "aws_lb_target_group" "socket_443" {
@@ -83,6 +88,7 @@ resource "aws_lb_target_group" "socket_443" {
   target_type = "instance"
   port        = 443
   protocol    = "TCP"
+  vpc_id      = data.aws_vpc.default_vpc.id
 }
 
 resource "aws_lb_target_group_attachment" "socket_tg_80_attach" {
@@ -101,6 +107,7 @@ resource "aws_lb" "socket_nlb" {
   name               = "socket-nlb"
   internal           = true
   load_balancer_type = "network"
+  vpc_id             = data.aws_vpc.default_vpc.id
 }
 
 resource "aws_lb_listener" "socket_listener_80" {
