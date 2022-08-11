@@ -1,2 +1,2 @@
 # mmf of https://github.com/xomanova/potential-guacamole
-# Test theme
+# Test new theme
