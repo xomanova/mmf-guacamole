@@ -107,6 +107,7 @@ resource "aws_lb" "socket_nlb" {
   name               = "socket-nlb"
   internal           = true
   load_balancer_type = "network"
+  subnets            = [aws_instance.socket_router.subnet_id]
 }
 
 resource "aws_lb_listener" "socket_listener_80" {
