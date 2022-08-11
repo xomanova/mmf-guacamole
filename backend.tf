@@ -113,7 +113,7 @@ resource "aws_lb" "socket_nlb" {
 resource "aws_lb_listener" "socket_listener_80" {
   load_balancer_arn = aws_lb.socket_nlb.arn
   port              = "80"
-  protocol          = "HTTP"
+  protocol          = "TCP"
 
   default_action {
     type             = "forward"
