@@ -84,7 +84,7 @@ resource "aws_lb_target_group" "socket_80" {
 }
 
 resource "aws_lb_target_group" "socket_443" {
-  name        = "socket-80"
+  name        = "socket-443"
   target_type = "instance"
   port        = 443
   protocol    = "TCP"
