@@ -107,7 +107,6 @@ resource "aws_lb" "socket_nlb" {
   name               = "socket-nlb"
   internal           = true
   load_balancer_type = "network"
-  vpc_id             = data.aws_vpc.default_vpc.id
 }
 
 resource "aws_lb_listener" "socket_listener_80" {
