@@ -62,12 +62,12 @@ resource "aws_instance" "socket_router" {
   user_data = <<EOF
 #!/bin/bash
 echo 1 >/proc/sys/net/ipv4/ip_forward
-iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination ${data.dns_a_record_set.tmp_socket.addrs}:80
-iptables -t nat -A POSTROUTING -p tcp -d ${data.dns_a_record_set.tmp_socket.addrs} --dport 80 -j MASQUERADE
-iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination ${data.dns_a_record_set.tmp_socket.addrs}:443
-iptables -t nat -A POSTROUTING -p tcp -d ${data.dns_a_record_set.tmp_socket.addrs} --dport 443 -j MASQUERADE
+iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination ${data.dns_a_record_set.tmp_socket.addrs[0]}:80
+iptables -t nat -A POSTROUTING -p tcp -d ${data.dns_a_record_set.tmp_socket.addrs[0]} --dport 80 -j MASQUERADE
+iptables -t nat -A PREROUTING -p tcp --dport 443 -j DNAT --to-destination ${data.dns_a_record_set.tmp_socket.addrs[0]}:443
+iptables -t nat -A POSTROUTING -p tcp -d ${data.dns_a_record_set.tmp_socket.addrs[0]} --dport 443 -j MASQUERADE
 iptables-save
-echo "80 and 443 port forwarding configured to ${data.dns_a_record_set.tmp_socket.addrs}" > /home/ec2-user/forwarder.log
+echo "80 and 443 port forwarding configured to ${data.dns_a_record_set.tmp_socket.addrs[0]}" > /home/ec2-user/forwarder.log
 EOF
 }
 
